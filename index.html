@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#121212">
+    <title>Experimento MacAdam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Pantalla de Bienvenida -->
+        <section id="screen-welcome" class="screen active">
+            <div class="content-wrapper">
+                <h1 class="elegant-title">Estudio de Percepción Visual</h1>
+                <p class="subtitle elegant-subtitle">Basado en las elipses de MacAdam</p>
+
+                <div class="instructions">
+                    <p>En este experimento verás dos cuadros de color:</p>
+                    <ul>
+                        <li><span class="highlight">Izquierda:</span> Color de referencia fijo.</li>
+                        <li><span class="highlight">Derecha:</span> Color que debes ajustar.</li>
+                    </ul>
+                    <p>Usa los controles hasta que ambos colores te parezcan <strong>absolutamente idénticos</strong>.
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="user-gender">Por favor, indica tu sexo biológico para el
+                        estudio:</label>
+                    <select id="user-gender" class="gender-select">
+                        <option value="" disabled selected>Selecciona una opción...</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                    </select>
+                </div>
+
+                <div class="device-info" style="margin-top: 0;">
+                    <p><small>Asegúrate de tener el brillo de tu pantalla al menos al 70% y evitar reflejos.</small></p>
+                </div>
+
+                <button id="btn-start" class="btn-primary">Comenzar Experimento</button>
+            </div>
+        </section>
+
+        <!-- Pantalla del Experimento -->
+        <section id="screen-experiment" class="screen">
+            <div class="experiment-header">
+                <span id="round-counter">Color 1 de 3</span>
+            </div>
+            <div class="color-display">
+                <div class="color-column">
+                    <div id="color-reference" class="color-patch"></div>
+                    <span class="color-label">Referencia</span>
+                </div>
+                <div class="color-column border-left">
+                    <div id="color-adjustable" class="color-patch"></div>
+                    <span class="color-label">Tu Ajuste</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <div class="control-header">
+                        <label>Tono (Hue)</label>
+                        <span id="val-hue" class="val-display">0°</span>
+                    </div>
+                    <div class="slider-container">
+                        <button class="btn-fine-tune" id="btn-hue-minus" aria-label="Disminuir tono">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14" />
+                            </svg>
+                        </button>
+                        <input type="range" id="slider-hue" class="slider hue-slider" min="0" max="360" value="0"
+                            step="1">
+                        <button class="btn-fine-tune" id="btn-hue-plus" aria-label="Aumentar tono">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 5v14M5 12h14" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-header">
+                        <label>Saturación</label>
+                        <span id="val-sat" class="val-display">100%</span>
+                    </div>
+                    <div class="slider-container">
+                        <button class="btn-fine-tune" id="btn-sat-minus" aria-label="Disminuir saturación">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14" />
+                            </svg>
+                        </button>
+                        <input type="range" id="slider-sat" class="slider sat-slider" min="0" max="100" value="100"
+                            step="1">
+                        <button class="btn-fine-tune" id="btn-sat-plus" aria-label="Aumentar saturación">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 5v14M5 12h14" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="action-bar">
+                    <button id="btn-submit" class="btn-accent">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" style="margin-right: 8px;">
+                            <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                        Confirmar Igualdad
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pantalla de Finalización -->
+        <section id="screen-finish" class="screen">
+            <div class="content-wrapper text-center">
+                <div class="success-icon" id="score-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3" />
+                    </svg>
+                </div>
+                <h1 id="score-title">Datos Guardados</h1>
+
+                <div class="score-container" id="score-container" style="display: none;">
+                    <div class="score-ring">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle" id="score-circle" stroke-dasharray="0, 100"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        </svg>
+                        <div class="percentage" id="score-percentage">0%</div>
+                    </div>
+                </div>
+
+                <div class="stats-comparison" id="stats-comparison" style="display: none;">
+                    <div class="stat-box">
+                        <span class="stat-label">Tu Puntuación</span>
+                        <span class="stat-value" id="stat-user">-</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Media Global</span>
+                        <span class="stat-value" id="stat-avg">-</span>
+                    </div>
+                </div>
+
+                <p id="score-message">Muchas gracias por participar en este experimento.</p>
+                <button id="btn-restart" class="btn-secondary mt-8">Hacer otro intento</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
+<!-- Link to Analysis page -->
+<div style="margin-top: 32px; text-align: center;">
+<a href="analysis.html" style="color: #a0a0a0; font-size: 14px; text-decoration: underline;">Panel de An�lisis de Elipses</a>
+</div>
